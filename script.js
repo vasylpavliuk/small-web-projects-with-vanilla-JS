@@ -41,6 +41,17 @@ function checkEmail(input) {
   }
 }
 
+function checkLength(input, min, max) {
+  if (input.value.length < min && input.value.trim() !== "") {
+    const message = `${getFieldName(input)} is not long enough`;
+    showError(input, message);
+  } else if (input.value.length > max) {
+    const message = `${getFieldName(input)} is too long`;
+    showError(input, message);
+  }
+  console.log("Hello world!");
+}
+
 //Function to check if both passwords match
 function checkPasswordMatch(input1, input2) {
   if (input1.value.trim() !== "" && input1.value === input2.value) {
@@ -48,6 +59,7 @@ function checkPasswordMatch(input1, input2) {
     showSuccess(input2);
   } else if (input1.value.trim() !== "") {
     const message = "Passwords do not match";
+    showError(input1, null);
     showError(input2, message);
   }
 }
@@ -63,4 +75,7 @@ form.addEventListener("submit", function (event) {
   checkRequired([username, email, password, password2]);
   checkEmail(email);
   checkPasswordMatch(password, password2);
+  checkLength(username, 3, 15);
+  checkLength(password, 5, 25);
+  checkLength(password2, 5, 25);
 });
